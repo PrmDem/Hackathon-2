@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon MVP Biblio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+  <nav class="bg-indigo-600 text-white p-4 shadow-lg sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <h1 class="text-xl font-bold flex items-center">
+        📚 <span class="ml-2 hidden sm:inline">Hate books</span>
+      </h1>
+      <div class="space-x-2">
+        <button id="btn-lib" class="px-4 py-2 rounded-lg bg-indigo-700 font-medium transition"
+          onclick="showPage('library')">
+          Ma Bibliothèque
+        </button>
+        <button id="btn-reco" class="px-4 py-2 rounded-lg hover:bg-indigo-500 font-medium transition opacity-75"
+          onclick="showPage('reco')">
+          Recommandations
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="page-library" class="max-w-6xl mx-auto p-6 space-y-8 animate-fade-in">
+    <section class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+      <h2 class="text-lg font-semibold text-gray-700 mb-4">Ajouter un livre</h2>
+      <div class="flex gap-4">
+        <input type="text" id="search-input" placeholder="Titre, auteur..."
+          class="flex-1 p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+        <button class="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 font-bold">
+          +
+        </button>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-2xl font-bold mb-6">Mes Livres</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="bg-white p-3 rounded-lg shadow hover:shadow-lg transition">
+          <div class="h-48 bg-gray-200 rounded mb-2 overflow-hidden">
+            <img
+              src="https://books.google.com/books/content?id=wrOQLV6xB-wC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+              class="w-full h-full object-cover">
+          </div>
+          <h3 class="font-bold text-sm truncate">Harry Potter</h3>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <main id="page-reco" class="max-w-6xl mx-auto p-6 hidden animate-fade-in">
+    <div class="text-center py-10">
+      <h2 class="text-3xl font-bold text-gray-800">Inspirations</h2>
+      <p class="text-gray-500 mt-2 mb-6">Basé sur vos lectures récentes</p>
+      <button
+        class="bg-green-600 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-green-700 transition transform hover:-translate-y-1">
+        Générer des idées
+      </button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-4 rounded-xl shadow border border-gray-100 flex gap-4">
+        <img
+          src="https://books.google.com/books/content?id=_KJUOwAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+          class="w-24 h-36 object-cover rounded shadow-sm">
+        <div>
+          <h3 class="font-bold text-lg">Le Seigneur des Anneaux</h3>
+          <p class="text-sm text-gray-500 mt-1 line-clamp-3">Une grande aventure épique...</p>
+          <button class="text-indigo-600 text-sm font-bold mt-3">Voir le détail</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,14 +1,17 @@
-const { createServer } = require('node:http');
+const express = require('express');
+const path = require('path');
+const app = express();
+const port = 3000;
 
-const hostname = '127.0.0.1';
-const port = 5000;
 
-const server = createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json');
-  res.end('Hello World');
+app.use(express.static(path.join(__dirname, '../front')));
+
+
+app.get('/', (req, res) => {
+  const cheminFichier = path.join(__dirname, '../front/index.html');
+  res.sendFile(cheminFichier);
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Serveur lancé ! Ouvre http://localhost:${port}`);
 });
