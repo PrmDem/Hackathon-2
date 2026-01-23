@@ -6,7 +6,7 @@ async function displayShelf() {
 
   if (data && data.items) {
     displayResult({
-      message: 'Your bookshelf',
+      message: 'Mes livres',
       count: data.items.length,
       shelves: data.items.map(shelf => ({
         id: shelf.id,
