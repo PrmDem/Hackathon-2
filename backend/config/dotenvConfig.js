@@ -7,5 +7,3 @@ export const config = {
   googleBooksApiKey: process.env.GOOGLE_BOOKS_API_KEY,
   env: process.env.NODE_ENV || 'development',
 };
-
-
