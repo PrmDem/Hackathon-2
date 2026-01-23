@@ -46,7 +46,7 @@ async function addToLibrary(bookId) {
     });
 
     if (response.ok) {
-      alert("Livre ajouté à vos favoris ! 🎉");
+      alert("Livre ajouté à votre désespoir ! 🎉");
       // Optionnel : On peut vider la recherche ou proposer d'aller voir la bibliothèque
     } else {
       console.error(await response.json());
@@ -65,11 +65,11 @@ async function getMyBooks() {
   const grid = document.getElementById('library-grid');
 
   if (!tokenData) {
-    grid.innerHTML = '<p class="text-center col-span-full text-gray-500">Connectez-vous pour voir vos favoris.</p>';
+    grid.innerHTML = '<p class="text-center col-span-full text-gray-500">Connectez-vous pour revivre vos angoisses littéraires.</p>';
     return;
   }
 
-  grid.innerHTML = '<p class="text-center col-span-full animate-pulse">Chargement de vos favoris...</p>';
+  grid.innerHTML = '<p class="text-center col-span-full animate-pulse">Chargement de vos erreurs...</p>';
 
   try {
     // On ajoute un timestamp pour éviter le cache
@@ -85,7 +85,7 @@ async function getMyBooks() {
       // Mode 'library' (pas de bouton ajouter, peut-être un bouton supprimer plus tard)
       displayBooks(data.items, 'library-grid', false);
     } else {
-      grid.innerHTML = '<p class="text-center col-span-full">Votre liste "Favoris" est vide.<br>Utilisez la recherche pour ajouter des livres !</p>';
+      grid.innerHTML = '<p class="text-center col-span-full">Votre liste "Mes cauchemars" est vide.<br>Utilisez la recherche pour en ajouter !</p>';
     }
   } catch (error) {
     console.error(error);
@@ -95,19 +95,35 @@ async function getMyBooks() {
 
 // --- 4. RECOMMANDATIONS ---
 async function generateRecommendations() {
-  const subjects = ['fantasy', 'science', 'history', 'romance', 'thriller'];
+  const subjects = ['fantasy', 'history', 'romance'];
+  const authors = ['J.K. Rowling', 'Brandon Sanderson', 'Aiden Thomas', 'Suzanne Collins', 'Rebecca Yarros'];
   const randomSubject = subjects[Math.floor(Math.random() * subjects.length)];
+  const randomAuthor = authors[Math.floor(Math.random() * authors.length)];
   const grid = document.getElementById('reco-grid');
 
   grid.innerHTML = '<p class="text-center col-span-full">Recherche d\'idées...</p>';
 
   try {
-    let url = `${API_URL}?q=subject:${randomSubject}&maxResults=3`;
-    if (API_KEY) url += `&key=${API_KEY}`;
-    const response = await fetch(url);
-    const data = await response.json();
+    let urlA = `${API_URL}?q=subject:${randomSubject}&maxResults=4`;
+    if (API_KEY) urlA += `&key=${API_KEY}`;
+    const response = await fetch(urlA);
+    const dataA = await response.json();
+
+    console.log(dataA);
+
+    let urlB = `${API_URL}?q=inauthor:${randomAuthor}&maxResults=2`;
+    if (API_KEY) urlB += `&key=${API_KEY}`;
+    const res = await fetch(urlB);
+    const dataB = await res.json();
+
+    const combinedData = [
+      ...(dataA.items || []),
+      ...(dataB.items || [])
+    ];
+
+    console.log(combinedData);
     // Mode 'reco' -> on met true pour pouvoir les ajouter aussi
-    displayBooks(data.items, 'reco-grid', true);
+    displayBooks(combinedData, 'reco-grid', true);
   } catch (error) {
     console.error(error);
   }
@@ -132,7 +148,7 @@ function displayBooks(books, containerId, showAddButton) {
     if (showAddButton) {
       actionButton = `
                 <button onclick="addToLibrary('${book.id}')" class="mt-2 w-full bg-indigo-100 text-indigo-700 hover:bg-indigo-200 font-bold py-1 px-2 rounded text-sm transition">
-                    + Ajouter aux favoris
+                    + Je me suis fait avoir
                 </button>
             `;
     }
