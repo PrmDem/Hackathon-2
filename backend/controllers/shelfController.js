@@ -1,6 +1,3 @@
-const fs = require('node:fs/promises');
-const callBooksAPI = require('../config/oauthConfig.callBooksAPI')
-
 async function displayShelf() {
   const data = await callBooksAPI('https://www.googleapis.com/books/v1/mylibrary/bookshelves');
 
