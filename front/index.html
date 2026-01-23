@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mon MVP Biblio</title>
+  <title>Hate Books MVP</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -13,29 +13,50 @@
 
   <nav class="bg-indigo-600 text-white p-4 shadow-lg sticky top-0 z-50">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
+
       <h1 class="text-xl font-bold flex items-center">
         📚 <span class="ml-2 hidden sm:inline">Hate books</span>
       </h1>
-      <div class="space-x-2">
-        <button id="btn-lib" class="px-4 py-2 rounded-lg bg-indigo-700 font-medium transition"
-          onclick="showPage('library')">
-          Ma Bibliothèque
-        </button>
-        <button id="btn-reco" class="px-4 py-2 rounded-lg hover:bg-indigo-500 font-medium transition opacity-75"
-          onclick="showPage('reco')">
-          Recommandations
+
+      <div class="flex items-center gap-4">
+
+        <div class="space-x-2 hidden md:block">
+          <button id="btn-lib" class="px-3 py-2 rounded-lg bg-indigo-700 font-medium transition"
+            onclick="showPage('library')">
+            Ma Bibliothèque
+          </button>
+          <button id="btn-reco" class="px-3 py-2 rounded-lg hover:bg-indigo-500 font-medium transition opacity-75"
+            onclick="showPage('reco')">
+            Recommandations
+          </button>
+        </div>
+
+        <button id="auth-btn"
+          class="bg-white text-indigo-600 px-4 py-2 rounded-lg font-bold hover:bg-gray-100 transition shadow-sm text-sm flex items-center">
+          <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24">
+            <path fill="currentColor"
+              d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z" />
+          </svg>
+          <span id="auth-text">Chargement...</span>
         </button>
       </div>
+    </div>
+
+    <div class="mt-4 flex justify-center space-x-4 md:hidden">
+      <button onclick="showPage('library')" class="text-sm font-medium hover:text-indigo-200">Bibliothèque</button>
+      <button onclick="showPage('reco')" class="text-sm font-medium hover:text-indigo-200">Recommandations</button>
     </div>
   </nav>
 
   <main id="page-library" class="max-w-6xl mx-auto p-6 space-y-8 animate-fade-in">
+
     <section class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
       <h2 class="text-lg font-semibold text-gray-700 mb-4">Ajouter un livre</h2>
       <div class="flex gap-4">
         <input type="text" id="search-input" placeholder="Titre, auteur..."
           class="flex-1 p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
-        <button class="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 font-bold">
+        <button onclick="searchBooks()"
+          class="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 font-bold">
           +
         </button>
       </div>
@@ -43,15 +64,10 @@
 
     <section>
       <h2 class="text-2xl font-bold mb-6">Mes Livres</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-        <div class="bg-white p-3 rounded-lg shadow hover:shadow-lg transition">
-          <div class="h-48 bg-gray-200 rounded mb-2 overflow-hidden">
-            <img
-              src="https://books.google.com/books/content?id=wrOQLV6xB-wC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-              class="w-full h-full object-cover">
-          </div>
-          <h3 class="font-bold text-sm truncate">Harry Potter</h3>
-        </div>
+      <div id="library-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <p class="text-gray-500 col-span-full text-center py-10">
+          Utilisez la recherche ci-dessus pour ajouter des livres.
+        </p>
       </div>
     </section>
   </main>
@@ -60,26 +76,19 @@
     <div class="text-center py-10">
       <h2 class="text-3xl font-bold text-gray-800">Inspirations</h2>
       <p class="text-gray-500 mt-2 mb-6">Basé sur vos lectures récentes</p>
-      <button
+      <button onclick="generateRecommendations()"
         class="bg-green-600 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-green-700 transition transform hover:-translate-y-1">
         Générer des idées
       </button>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="bg-white p-4 rounded-xl shadow border border-gray-100 flex gap-4">
-        <img
-          src="https://books.google.com/books/content?id=_KJUOwAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-          class="w-24 h-36 object-cover rounded shadow-sm">
-        <div>
-          <h3 class="font-bold text-lg">Le Seigneur des Anneaux</h3>
-          <p class="text-sm text-gray-500 mt-1 line-clamp-3">Une grande aventure épique...</p>
-          <button class="text-indigo-600 text-sm font-bold mt-3">Voir le détail</button>
-        </div>
-      </div>
+    <div id="reco-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <p class="text-gray-500 col-span-full text-center">
+        Cliquez sur le bouton vert pour lancer la magie.
+      </p>
     </div>
   </main>
-
+  <script src="auth.js"></script>
   <script src="script.js"></script>
 </body>
 
