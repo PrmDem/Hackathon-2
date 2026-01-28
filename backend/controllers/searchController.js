@@ -1,7 +1,9 @@
 // 'query' vient de ce qui sera noté dans la barre de recherche
+const { config } = require('../config/dotenvConfig');
+
 async function searchBooks(query) {
   try {
-    const callUrl = `https://www.googleapis.com/books/v1/volumes?q=${query}&key=AIzaSyDffqnAVzsWPZjwjYgzl54jQFMlCyMkYCU`;
+    const callUrl = `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${config.googleBooksApiKey}`;
     console.log(callUrl);
     const response = await fetch(callUrl, {
       method: 'GET'
