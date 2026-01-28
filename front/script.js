@@ -122,7 +122,7 @@ async function generateRecommendations() {
     ];
 
     console.log(combinedData);
-    // Mode 'reco' -> on met true pour pouvoir les ajouter aussi
+    // Mode 'déreco' -> on met true pour pouvoir les ajouter aussi
     displayBooks(combinedData, 'reco-grid', true);
   } catch (error) {
     console.error(error);
@@ -142,7 +142,7 @@ function displayBooks(books, containerId, showAddButton) {
     const title = info.title || 'Titre inconnu';
     const author = info.authors ? info.authors[0] : 'Auteur inconnu';
 
-    // Le bouton n'apparait que si showAddButton est vrai (Recherche/Reco)
+    // Le bouton n'apparait que si showAddButton est vrai (Recherche/Déreco)
     // et on passe l'ID du livre à la fonction addToLibrary
     let actionButton = '';
     if (showAddButton) {

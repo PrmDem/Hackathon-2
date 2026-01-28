@@ -1,5 +1,5 @@
 // --- CONFIGURATION ---
-const CLIENT_ID = '843307393091-mddgktopqlt4gj03lerocpofmeq0li6m.apps.googleusercontent.com'; // <--- VERIFIE QUE C'EST LE BON
+const CLIENT_ID = '843307393091-mddgktopqlt4gj03lerocpofmeq0li6m.apps.googleusercontent.com';
 const REDIRECT_URI = 'http://localhost:3000';
 const SCOPES = 'https://www.googleapis.com/auth/books';
 
